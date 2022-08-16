@@ -17,10 +17,24 @@ func TimeNowMilli() int64 {
 	return time.Now().UnixNano() / 1e6
 }
 
-func Check(err error, msg string) {
+func CheckAndPanic(err error, msg string) {
 	if err != nil {
 		panic(errors.Wrap(err, msg))
 	}
+}
+
+func CheckAndWrap(err error, msg string) error {
+	if err != nil {
+		return errors.Wrap(err, msg)
+	}
+	return nil
+}
+
+func CheckQuery(err error) error {
+	if err != nil {
+		return errors.Wrap(err, "query failed")
+	}
+	return nil
 }
 
 func PrintBytes(bytes []byte) {
